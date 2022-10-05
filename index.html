@@ -4,29 +4,26 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vianey- Dinosaurio</title>
+    <title>Vianey-Dinosaurio</title>
 
     <style>
         body{
             height: 100vh;
-            background-color: #6F42BA;
+            background-color: #7e23d3;
             display: flex;
             align-items: center;
-
         }
-
         .contenedor{
             width: 920px;
             height: 280px;
             margin: 0 auto;
             
             position: relative;
-            background: linear-gradient(#b7d6c7, transparent) #ffe2d1;
+            background: linear-gradient(#c1c3ab, transparent) #bad8da;
             transition: background-color 1s linear;
             overflow: hidden;
         }
-
-        .dino {
+        .dino{
             width: 84px;
             height: 84px;
 
@@ -39,9 +36,7 @@
             background-size: 336px 84px;
             background-position-x: 0px;
         }
-
-
-        .suelo {
+        .suelo{
             width: 200%;
             height: 42px;
 
@@ -53,114 +48,96 @@
             background-size: 50% 42px;
         }
 
-        .dinoCorriendo {
-            animation: animarDino 0.3s steps(2) infinite;
+        .dinoCorriendo{
+            animation: animarDino 0.3s steps(2)infinite;
         }
 
-        @keyframes animarDino{
-            from {
-                background-position-x: -84px;
+        @keyframes animarDino {
+            from{
+                background-position-x:-84px ;
             }
             to{
-                background-position-x: -252px;
+                background-position-x:-252px ;
             }
-
         }
     </style>
-
 </head>
 <body>
-        <div class="contenedor">
+    <div class="contenedor">
         <div class="suelo"></div>
         <div class="dino dinoCorriendo"></div>
-
     </div>
-
     <script>
-
-        var time = new Date();
-        var delaTime = 0;
-
+        var time=new Date();
+        var delaTime=0;
         var contenedor;
         var dino;
         var suelo;
 
-        //para desplazar suelo
-        var sueloX = 0;
-        var velEscenario = 1280/8;
-        var gameVel = 1;
+        var sueloX=0;
+        var velEscenario= 1280/8;
+        var gameVel=1;
 
-        var sueloY =22;
-        var velY = 0;
-        var impulso = 800;
-        var gravedad = 2000;
+        var sueloY=22;
+        var velY=0;
+        var impulso=750;
+        var gravedad=2500;
 
-        var saltando = false;
+        var saltando=false;
 
-        var dinoPosX = 22; 
-        var dinoPosY = sueloY;
+        var dinoPosX=22;
+        var dinoPosY= sueloY;
 
-    
 
-        if(document.readyState === 'complete'){
+
+        if(document.readyState==='complete'){
             
         }else{
             Init();
 
         }
         function Init(){
-            suelo = document.querySelector(".suelo");
-            contenedor = document.querySelector(".contenedor");
-            dino = document.querySelector(".dino");
+            suelo=document.querySelector(".suelo");
+            contenedor=document.querySelector(".contenedor");
+            dino=document.querySelector(".dino");
 
-            document.addEventListener("keydown", myKeyDown);
-            Loop ();
-
-            
+            document.addEventListener("keydown",myKeyDown);
+            Loop();
         }
 
         function myKeyDown(e){
-            if(e.keyCode == 32){
-               
-                if(dinoPosY === sueloY){
-                    velY = impulso;
-                    dino.classList.remove("dinoCorriendo")
-                    saltando = true;
+            if(e.keyCode==32){
+                if(dinoPosY===sueloY){
+                    velY=impulso;
+                    dino.classList.remove("dinoCorriendo");
+                    saltando=true;
                 }
             }
         }
-
         function Loop(){
-            delaTime = (new Date() - time) / 1000;
-            time = new Date();
+            delaTime= (new Date()-time)/1000;
+            time=new Date();
             Update();
             requestAnimationFrame(Loop);
         }
-
         function Update(){
             SaltaDinosaurio();
-            sueloX += delaTime * gameVel * velEscenario;
-            suelo.style.left =-(sueloX % contenedor.clientWidth) + "px";
+            sueloX+=delaTime*gameVel*velEscenario;
+            suelo.style.left=-(sueloX % contenedor.clientWidth)+"px";
 
-            velY -= gravedad*delaTime;
+            velY-=gravedad*delaTime;
         }
 
         function SaltaDinosaurio(){
             dinoPosY+=velY*delaTime;
-            if (dinoPosY<sueloY){
-                dinoPosY = sueloY;
-                velY = 0;
+            if(dinoPosY<sueloY){
+                dinoPosY=sueloY;
+                velY=0;
                 dino.classList.add("dinoCorriendo");
-                saltando = false;
+                saltando=false;
             }
-
-            dino.style.bottom = dinoPosX + "px";
-        
-
+            dino.style.bottom=dinoPosY+"px";
         }
-
-
     </script>
-    
 </body>
 </html>
